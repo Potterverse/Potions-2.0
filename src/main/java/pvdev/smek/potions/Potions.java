@@ -12,6 +12,7 @@ public final class Potions extends JavaPlugin {
     @Override
     public void onEnable() {
         plugin = this;
+
         IngredientManager.registerIngredients();
         RecipeManager.registerRecipes();
         Bukkit.getPluginManager().registerEvents(new TestingListener(), this);

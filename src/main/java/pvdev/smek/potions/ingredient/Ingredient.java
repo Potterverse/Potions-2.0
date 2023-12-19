@@ -5,10 +5,10 @@ import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +18,6 @@ public class Ingredient {
     private final String description;
     private final TextColor color;
     private final Material baseMaterial;
-    public Ingredient(String name, String description, TextColor color, Material baseMaterial) {
-        this.name = name;
-        this.description = description;
-        this.color = color;
-        this.baseMaterial = baseMaterial;
-    }
     public Ingredient(JSONObject jsonObject) {
         this.name = jsonObject.getString("name");
         this.description = jsonObject.getString("description");
@@ -34,16 +28,18 @@ public class Ingredient {
         ItemStack item = new ItemStack(baseMaterial);
 
         ItemMeta meta = item.getItemMeta();
-        meta.displayName(Component.text(name).decorate(TextDecoration.ITALIC).color(color));
+        meta.displayName(Component.text(name)
+                .decoration(TextDecoration.ITALIC, false)
+                .decorate(TextDecoration.BOLD).color(color));
 
         List<Component> lore = new ArrayList<>();
-        lore.add(Component.text(description).decorate(TextDecoration.ITALIC).color(color));
+        lore.add(Component.text(description).decoration(TextDecoration.ITALIC, false).color(color));
         lore.add(Component.text("Official Potterverse Ingredient")
                 .decorate(TextDecoration.ITALIC)
                 .color(TextColor.fromHexString("#b986f0")));
         meta.lore(lore);
-
-        meta.addEnchant(Enchantment.LOOT_BONUS_BLOCKS, 1, false);
+        meta.addEnchant(Enchantment.LOOT_BONUS_BLOCKS, 1, true);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);
 
         return item;

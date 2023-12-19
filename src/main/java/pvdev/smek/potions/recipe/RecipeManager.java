@@ -15,6 +15,6 @@ public class RecipeManager {
         });
     }
     public static Recipe getRecipe(String key) {
-        return recipes.get(key);
+        return new Recipe(recipes.get(key).getJsonRecipe());
     }
 }

@@ -25,9 +25,8 @@ public class IngredientStep extends Step {
 
     @Override
     public String toString() {
-        return "Ingredient: " + ingredient.getName() + " x" + quantity;
+        return ingredient.getName() + " " + quantityRegistered + "/" + quantity;
     }
-
     public Ingredient getIngredient() {
         return ingredient;
     }

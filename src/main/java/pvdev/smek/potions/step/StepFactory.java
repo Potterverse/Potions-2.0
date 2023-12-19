@@ -1,10 +1,7 @@
 package pvdev.smek.potions.step;
 
 
-import net.kyori.adventure.text.format.TextColor;
-import org.bukkit.Material;
 import org.json.JSONObject;
-import pvdev.smek.potions.ingredient.Ingredient;
 import pvdev.smek.potions.ingredient.IngredientManager;
 
 public class StepFactory {
@@ -13,7 +10,7 @@ public class StepFactory {
             case "ingredient" -> {
                 String ingredient = jsonObject.getString("ingredient");
                 int quantity =  jsonObject.getInt("quantity");
-                if (IngredientManager.getIngredient(ingredient) == null) return null;
+                if (IngredientManager.getIngredient(ingredient) == null) break;
 
                 return new IngredientStep(IngredientManager.getIngredient(ingredient), quantity);
             }

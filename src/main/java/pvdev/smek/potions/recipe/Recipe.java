@@ -11,11 +11,13 @@ import java.util.Queue;
 public class Recipe {
     private final String name;
     private final Queue<Step> recipe = new LinkedList<>();
+    private final JSONObject jsonRecipe;
     public Recipe(JSONObject jsonRecipe) {
         this.name = jsonRecipe.getString("name");
+        this.jsonRecipe = jsonRecipe;
         registerSteps(jsonRecipe);
     }
-    public void registerSteps(JSONObject jsonRecipe) {
+    private void registerSteps(JSONObject jsonRecipe) {
         jsonRecipe.getJSONArray("steps").forEach(object -> {
             Step step = StepFactory.getStep((JSONObject) object);
             if (step == null) {
@@ -32,6 +34,7 @@ public class Recipe {
         if (!recipe.peek().processStep(step)) Potions.getPlugin().getLogger().warning("RECIPE FAILED");
         if (isCompleted()) Potions.getPlugin().getLogger().warning("RECIPE COMPLETED");
     }
+    // Might be used for testing purposes only.
     public Step currentStep() {
         return recipe.peek();
     }
@@ -43,5 +46,8 @@ public class Recipe {
     }
     public String getName() {
         return name;
+    }
+    public JSONObject getJsonRecipe() {
+        return jsonRecipe;
     }
 }
