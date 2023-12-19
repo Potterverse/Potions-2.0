@@ -1,0 +1,10 @@
+{
+    "name": "Cure for Boils",
+    "steps": [
+        {
+            "type": "ingredient",
+            "ingredient": "Salamander Blood",
+            "quantity": 3
+        }
+    ]
+}

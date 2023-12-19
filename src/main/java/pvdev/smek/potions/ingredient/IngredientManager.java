@@ -14,6 +14,7 @@ public class IngredientManager {
             ingredients.put(ingredient.getName(), ingredient);
         });
     }
+    // Can retrieve this one directly since we make no modifications to it unlike Recipes.
     public static Ingredient getIngredient(String key) {
         return ingredients.get(key);
     }

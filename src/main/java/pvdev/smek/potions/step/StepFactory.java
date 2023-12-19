@@ -6,6 +6,7 @@ import pvdev.smek.potions.ingredient.IngredientManager;
 
 public class StepFactory {
     public static Step getStep(JSONObject jsonObject) {
+        // More steps will be added soon.
         switch(jsonObject.getString("type").toLowerCase()) {
             case "ingredient" -> {
                 String ingredient = jsonObject.getString("ingredient");
