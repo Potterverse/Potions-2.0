@@ -1,0 +1,4 @@
+name: Potions
+version: '1.0-SNAPSHOT'
+main: pvdev.smek.potions.Potions
+api-version: '1.18'
