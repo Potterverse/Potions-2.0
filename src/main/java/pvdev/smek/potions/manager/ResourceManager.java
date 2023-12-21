@@ -47,11 +47,20 @@ public class ResourceManager {
     }
 
     /**
-     * Retrieves a copy of the Ingredient retrieved from its Hashmap.
-     * @param key       The key associated with the Ingredient.
-     * @return          A new instance of the retrieved Ingredient if found. Else returns null.
+     * Retrieves a copy of the ingredient retrieved from its Hashmap.
+     * @param key       The key associated with the ingredient.
+     * @return          A new instance of the retrieved ingredient if found. Else returns null.
      */
     public static Ingredient getIngredientCopy(String key) {
         return ingredients.get(key) == null ? null : new Ingredient(ingredients.get(key));
+    }
+
+    /**
+     * Retrieves a copy of the recipe retrieved from its Hashmap.
+     * @param key       The key associated with the recipe.
+     * @return          A new instance of the retrieved recipe if found. Else returns null.
+     */
+    public static Recipe getRecipeCopy(String key) {
+        return recipes.get(key) == null ? null : new Recipe(recipes.get(key));
     }
 }
