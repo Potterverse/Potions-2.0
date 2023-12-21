@@ -20,7 +20,7 @@ public class ResourceManager {
     private static final HashMap<String, Ingredient> ingredients = new HashMap<>();
     private static final HashMap<String, Recipe> recipes = new HashMap<>();
 
-    private void registerResources() {
+    public static void registerResources() {
         registerResources(INGREDIENTS_DIRECTORY_NAME, ingredients, new IngredientValidator());
         registerResources(RECIPES_DIRECTORY_NAME, recipes, new RecipeValidator());
     }
@@ -34,7 +34,7 @@ public class ResourceManager {
      * @param validator         The associated validator to verify JSON structure.
      * @param <T>               Any generic type that extends off the Resource class.
      */
-    private <T extends Resource> void registerResources(
+    private static <T extends Resource> void registerResources(
             String directoryName, HashMap<String, T> resourceMap, Validator<T> validator) {
 
         JSONUtil.createDirectory(directoryName);

@@ -27,7 +27,7 @@ public class Ingredient implements Resource {
         this.name =  name;
         this.description = description;
         this.color = validateAndReturnColor(hex);
-        this.material = validateAndReturnMaterial(material);
+        this.material = validateAndReturnMaterial(material.toUpperCase());
     }
 
     /**
