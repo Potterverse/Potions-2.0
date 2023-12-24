@@ -1,10 +1,12 @@
 package pvdev.smek.potions.resources.manager;
 
+import pvdev.smek.potions.Potions;
 import pvdev.smek.potions.json.JSONUtil;
 import pvdev.smek.potions.resources.resource.Resource;
 import pvdev.smek.potions.resources.validator.Validator;
 
 import java.util.HashMap;
+import java.util.logging.Level;
 
 /**
  * Responsible for handling all the intractable resources used by Potions.

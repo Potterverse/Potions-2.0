@@ -1,9 +1,11 @@
 package pvdev.smek.potions.resources.manager;
 
+import pvdev.smek.potions.Potions;
 import pvdev.smek.potions.resources.resource.Recipe;
 import pvdev.smek.potions.resources.validator.resource.RecipeValidator;
 
 import java.util.HashMap;
+import java.util.logging.Level;
 
 /**
  * Responsible for providing reference to all registered recipes used by Potions.
@@ -13,7 +15,9 @@ public class RecipeManager extends ResourceManager {
     private final HashMap<String, Recipe> recipes = new HashMap<>();
 
     public void registerRecipes() {
+        Potions.log("Loading Recipes:", Level.INFO);
         registerResources(RECIPES_DIRECTORY_NAME, recipes, new RecipeValidator());
+        Potions.log("| done! :)", Level.INFO);
     }
 
     /**

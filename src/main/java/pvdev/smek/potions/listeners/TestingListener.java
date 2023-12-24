@@ -33,6 +33,10 @@ public class TestingListener implements Listener {
                 recipe.executeStep(new IngredientStep(Potions.getIngredientManager().getIngredientCopy("Salamander Blood"), 1));
                 player.sendMessage(recipe.currentStep() == null ? "NULL" : recipe.currentStep().toString());
             }
+
+            if (player.getInventory().getItemInMainHand().getType().equals(Material.DIAMOND)) {
+                Potions.reloadResources();
+            }
         }
     }
 }

@@ -51,8 +51,8 @@ public class Ingredient implements Resource {
 
     public ItemStack getItemStack() {
         ItemStack item = new ItemStack(material);
-
         ItemMeta meta = item.getItemMeta();
+
         meta.displayName(Component.text(name)
                 .decoration(TextDecoration.ITALIC, false)
                 .decorate(TextDecoration.BOLD).color(color));
@@ -63,6 +63,7 @@ public class Ingredient implements Resource {
                 .decorate(TextDecoration.ITALIC)
                 .color(TextColor.fromHexString("#b986f0")));
         meta.lore(lore);
+
         item.setItemMeta(meta);
 
         return item;

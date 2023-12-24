@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 /**
  * Utility class for JSON related file-handling. This may be switched out
@@ -25,7 +26,7 @@ public class JSONUtil {
     public static void createDirectory(String directoryName) {
         File directory = new File(Potions.getPlugin().getDataFolder() + "/" + directoryName);
         if (directory.mkdirs())
-            Potions.getPlugin().getLogger().warning("Creating new " + directoryName + " directory.");
+            Potions.log(("Creating new " + directoryName + " directory."), Level.INFO);
     }
 
     /**
@@ -40,15 +41,15 @@ public class JSONUtil {
 
         File[] files = directory.listFiles();
         if (files == null) {
-            Potions.getPlugin().getLogger().warning("Failed to access this directory.");
+            Potions.log("\tFailed to access this directory.", Level.WARNING);
             return jsonFiles;
         }
         for (File file : files) {
             try {
                 jsonFiles.add(JsonParser.parseReader(new FileReader(file)).getAsJsonObject());
-            } catch (IOException e) {
-                Potions.getPlugin().getLogger()
-                        .warning("Failed to load file \"" + file.getName() + "\". Reason: " + e.getMessage());
+            } catch (Exception e) {
+                Potions.log("| Failed to load file \""
+                        + file.getName() + "\". Reason: " + e.getMessage(), Level.WARNING);
             }
         }
         return jsonFiles;
