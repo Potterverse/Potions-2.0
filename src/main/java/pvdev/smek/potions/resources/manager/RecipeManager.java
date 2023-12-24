@@ -26,7 +26,7 @@ public class RecipeManager extends ResourceManager {
      * @return          A new instance of the retrieved recipe if found. Else returns null.
      */
     public Recipe getRecipeCopy(String key) {
-        if (key == null) return null;
-        return recipes.get(key) == null ? null : new Recipe(recipes.get(key));
+        if (key == null || recipes.get(key) == null) return null;
+        return new Recipe(recipes.get(key));
     }
 }

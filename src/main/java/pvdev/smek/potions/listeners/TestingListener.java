@@ -26,8 +26,10 @@ public class TestingListener implements Listener {
                 player.getInventory().addItem(Potions.getIngredientManager().getIngredientCopy("Salamander Blood").getItemStack());
             }
             if (player.getInventory().getItemInMainHand().getType().equals(Material.BLAZE_ROD)) {
-                recipe = null;
                 recipe = Potions.getRecipeManager().getRecipeCopy("Cure for Boils");
+            }
+            if (player.getInventory().getItemInMainHand().getType().equals(Material.FISHING_ROD)) {
+                recipe = null;
             }
             if (recipe != null && !player.getInventory().getItemInMainHand().getType().equals(Material.BLAZE_ROD)) {
                 recipe.executeStep(new IngredientStep(Potions.getIngredientManager().getIngredientCopy("Salamander Blood"), 1));

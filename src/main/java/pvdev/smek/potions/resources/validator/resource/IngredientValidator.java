@@ -22,11 +22,11 @@ public class IngredientValidator implements Validator<Ingredient> {
         String material = JSONUtil.findJSONString(jsonObject, "material");
 
         if (name == null || description == null || hex == null || material == null) {
-            Potions.log("| Failed to validate ingredient step parameters. Please check the JSON file.",
+            Potions.log("| Failed to validate ingredient parameters. Please check the JSON file.",
                     Level.WARNING);
             return null;
         }
-        Potions.log("| Registering ingredient: \"" + name + "\".", Level.INFO);
+
         return new Ingredient(name, description, hex, material);
     }
 }

@@ -15,7 +15,8 @@ import java.util.logging.Level;
 public class Recipe implements Resource {
 
     private final String name;
-    private Queue<Step> recipe = new LinkedList<>();
+    private final JsonArray jsonRecipe;
+    private final Queue<Step> recipe = new LinkedList<>();
 
     /***
      * Constructs a recipe with the given name and JSON array
@@ -24,7 +25,9 @@ public class Recipe implements Resource {
      * @param recipe    The JSON array used to generate each step of the Recipe.
      */
     public Recipe(String name, JsonArray recipe) {
+        Potions.log("| Registering recipe: \"" + name + "\".", Level.INFO);
         this.name =  name;
+        this.jsonRecipe = recipe;
         registerSteps(recipe);
     }
     /**
@@ -33,8 +36,10 @@ public class Recipe implements Resource {
      * @param recipe    The recipe instance being copied from.
      */
     public Recipe(Recipe recipe) {
+        Potions.log("Copying recipe: \"" + recipe.getName() + "\".", Level.INFO);
         this.name = recipe.getName();
-        this.recipe = recipe.getRecipe();
+        this.jsonRecipe = recipe.getRecipe();
+        registerSteps(recipe.getRecipe());
     }
 
     /**
@@ -45,8 +50,9 @@ public class Recipe implements Resource {
         recipe.forEach(jsonElement -> {
             Step step = StepFactory.validateAndReturnStep(jsonElement.getAsJsonObject());
             if (step == null) return;
-            this.recipe.add(step);
             step.registerRecipe(this);
+
+            this.recipe.add(step);
         });
     }
 
@@ -77,7 +83,7 @@ public class Recipe implements Resource {
         return name;
     }
 
-    public Queue<Step> getRecipe() {
-        return recipe;
+    public JsonArray getRecipe() {
+        return jsonRecipe;
     }
 }

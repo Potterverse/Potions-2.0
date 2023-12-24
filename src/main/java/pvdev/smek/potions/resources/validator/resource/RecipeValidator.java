@@ -20,8 +20,11 @@ public class RecipeValidator implements Validator<Recipe> {
         String name = JSONUtil.findJSONString(jsonObject, "name");
         JsonArray steps = JSONUtil.findJSONArray(jsonObject, "steps");
 
-        if (name == null || steps == null) return null;
-        Potions.log("| Registering resource: \"" + name + "\".", Level.INFO);
+        if (name == null || steps == null)  {
+            Potions.log("| Failed to validate recipe parameters. Please check the JSON file.",
+                    Level.WARNING);
+            return null;
+        }
         return new Recipe(name, steps);
     }
 }

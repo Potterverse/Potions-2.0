@@ -26,8 +26,8 @@ public class IngredientManager extends ResourceManager {
      * @return          A new instance of the retrieved ingredient if found. Else returns null.
      */
     public Ingredient getIngredientCopy(String key) {
-        if (key == null) return null;
-        return ingredients.get(key) == null ? null : new Ingredient(ingredients.get(key));
+        if (key == null || ingredients.get(key) == null) return null;
+        return new Ingredient(ingredients.get(key));
     }
 
 }

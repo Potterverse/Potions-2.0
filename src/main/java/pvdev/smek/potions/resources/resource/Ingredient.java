@@ -6,9 +6,11 @@ import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import pvdev.smek.potions.Potions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 /***
  * The resource responsible for representing potion ingredients.
@@ -31,6 +33,7 @@ public class Ingredient implements Resource {
      * @param material      The name of the Minecraft material representing the ingredient.
      */
     public Ingredient(String name, String description, String hex, String material) {
+        Potions.log("| Registering ingredient: \"" + name + "\".", Level.INFO);
         this.name =  name;
         this.description = description;
         this.color = validateAndReturnColor(hex);
