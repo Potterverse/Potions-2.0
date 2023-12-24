@@ -1,4 +1,4 @@
-package pvdev.smek.potions.resource;
+package pvdev.smek.potions.resources.resource;
 
 /***
  * An interface representing resources that need to be instantiated on startup for reference.

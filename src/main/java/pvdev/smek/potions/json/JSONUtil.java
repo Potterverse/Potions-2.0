@@ -1,5 +1,7 @@
 package pvdev.smek.potions.json;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import pvdev.smek.potions.Potions;
@@ -50,5 +52,25 @@ public class JSONUtil {
             }
         }
         return jsonFiles;
+    }
+
+    public static String findJSONString(JsonObject jsonObject, String key) {
+        JsonElement jsonElement = jsonObject.get(key);
+        if (jsonElement.isJsonPrimitive() && jsonElement.getAsJsonPrimitive().isString())
+            return jsonElement.getAsString();
+        return null;
+    }
+
+    public static Integer findJSONInteger(JsonObject jsonObject, String key) {
+        JsonElement jsonElement = jsonObject.get(key);
+        if (jsonElement.isJsonPrimitive() && jsonElement.getAsJsonPrimitive().isNumber())
+            return jsonElement.getAsInt();
+        return null;
+    }
+
+    public static JsonArray findJSONArray(JsonObject jsonObject, String key) {
+        JsonElement jsonElement = jsonObject.get(key);
+        if (jsonElement.isJsonArray()) return jsonElement.getAsJsonArray();
+        return null;
     }
 }

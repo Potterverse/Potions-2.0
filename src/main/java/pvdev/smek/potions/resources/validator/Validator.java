@@ -1,4 +1,4 @@
-package pvdev.smek.potions.resource.validator;
+package pvdev.smek.potions.resources.validator;
 
 import com.google.gson.JsonObject;
 

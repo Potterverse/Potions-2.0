@@ -1,6 +1,6 @@
-package pvdev.smek.potions.step;
+package pvdev.smek.potions.resources.step;
 
-import pvdev.smek.potions.resource.Ingredient;
+import pvdev.smek.potions.resources.resource.Ingredient;
 
 /**
  * Brewing step that involves the process

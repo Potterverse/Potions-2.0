@@ -1,6 +1,6 @@
-package pvdev.smek.potions.step;
+package pvdev.smek.potions.resources.step;
 
-import pvdev.smek.potions.resource.Recipe;
+import pvdev.smek.potions.resources.resource.Recipe;
 
 /**
  * Template for Step instances where recipes can be registered

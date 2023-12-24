@@ -1,7 +1,8 @@
-package pvdev.smek.potions.resource;
+package pvdev.smek.potions.resources.resource;
 
 import com.google.gson.JsonArray;
-import pvdev.smek.potions.step.Step;
+import pvdev.smek.potions.resources.step.Step;
+import pvdev.smek.potions.resources.step.StepFactory;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -39,7 +40,12 @@ public class Recipe implements Resource {
      * @param recipe    The JSON array used to generate each step of the Recipe.
      */
     private void registerSteps(JsonArray recipe) {
-
+        recipe.forEach(jsonElement -> {
+            Step step = StepFactory.validateAndReturnStep(jsonElement.getAsJsonObject());
+            if (step == null) return;
+            this.recipe.add(step);
+            step.registerRecipe(this);
+        });
     }
 
     /**
@@ -49,7 +55,11 @@ public class Recipe implements Resource {
      */
     public void executeStep(Step step) {
         if (isCompleted()) return;
+        if (!currentStep().processStep(step)) return;
+    }
 
+    public Step currentStep() {
+        return recipe.peek();
     }
 
     public void nextStep() {

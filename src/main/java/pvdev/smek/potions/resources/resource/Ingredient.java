@@ -1,7 +1,14 @@
-package pvdev.smek.potions.resource;
+package pvdev.smek.potions.resources.resource;
 
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /***
  * The resource responsible for representing potion ingredients.
@@ -12,8 +19,8 @@ public class Ingredient implements Resource {
     private final TextColor color;
     private final Material material;
 
-    private static final TextColor DEFAULT_COLOR = TextColor.fromHexString("#FFFFFF");
-    private static final Material DEFAULT_MATERIAL = Material.GRASS_BLOCK;
+    public static final TextColor DEFAULT_COLOR = TextColor.fromHexString("#FFFFFF");
+    public static final Material DEFAULT_MATERIAL = Material.GRASS_BLOCK;
 
     /**
      * Constructs an ingredient with the given name, description,
@@ -40,6 +47,25 @@ public class Ingredient implements Resource {
         this.description = ingredient.getDescription();
         this.color = ingredient.getColor();
         this.material = ingredient.getMaterial();
+    }
+
+    public ItemStack getItemStack() {
+        ItemStack item = new ItemStack(material);
+
+        ItemMeta meta = item.getItemMeta();
+        meta.displayName(Component.text(name)
+                .decoration(TextDecoration.ITALIC, false)
+                .decorate(TextDecoration.BOLD).color(color));
+
+        List<Component> lore = new ArrayList<>();
+        lore.add(Component.text(description).decoration(TextDecoration.ITALIC, false).color(color));
+        lore.add(Component.text("Official Potterverse Ingredient")
+                .decorate(TextDecoration.ITALIC)
+                .color(TextColor.fromHexString("#b986f0")));
+        meta.lore(lore);
+        item.setItemMeta(meta);
+
+        return item;
     }
 
     @Override
