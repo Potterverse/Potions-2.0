@@ -1,6 +1,10 @@
 {
-    "name": "Salamander Blood",
-    "description": "Smells Fishy",
+    "name": "Bezoar",
+    "description": "A stone taken from the stomach of a goat.",
     "hex": "#ff4d4d",
-    "material": "BEETROOT_SOUP"
+    "material": "BEETROOT_SOUP",
+    "custom": 1,
+    "processing": {
+        "crushing": "Crushed Bezoar"
+    }
 }

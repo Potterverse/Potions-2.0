@@ -6,7 +6,7 @@
 
     <groupId>pvdev.smek</groupId>
     <artifactId>Potions</artifactId>
-    <version>1.1.9-SNAPSHOT</version>
+    <version>1.2.12-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Potions</name>
@@ -35,8 +35,6 @@
                 <includes>
                     <include>plugin.yml</include>
                     <include>config.yml</include>
-                    <include>ingredients</include>
-                    <include>recipes</include>
                 </includes>
             </resource>
         </resources>

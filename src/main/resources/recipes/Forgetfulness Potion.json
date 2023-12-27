@@ -1,0 +1,64 @@
+{
+    "name": "Forgetfulness Potion",
+    "hex": "#fca849",
+    "steps": [
+        {
+            "type": "ingredient",
+            "ingredient": "Salamander Blood",
+            "quantity": 3
+        },
+        {
+            "type": "ingredient",
+            "ingredient": "Salamander Blood",
+            "quantity": 0
+        },
+        {
+            "type": "ingredient",
+            "ingredient": "Salamander Blood",
+            "quantity": -1
+        },
+        {
+            "type": "ingredient",
+            "ingredient": "Salamander Blood",
+            "quantity": "Not a number"
+        },
+        {
+            "type": "ingredient",
+            "ingredient": "Non-existent",
+            "quantity": 3
+        },
+        {
+            "type": "???"
+        },
+        {
+            "type": "stir",
+            "direction": "CLOCKWISE",
+            "rotations": 2,
+            "speed": "SLOW"
+        },
+        {
+            "type": "stir",
+            "direction": "COUNTERCLOCKWISE",
+            "rotations": 0,
+            "speed": "MEDIUM"
+        },
+        {
+            "type": "stir",
+            "direction": "CLOCKWISE",
+            "rotations": -1,
+            "speed": "FAST"
+        },
+        {
+            "type": "stir",
+            "direction": "Invalid direction",
+            "rotations": 2,
+            "speed": "FAST"
+        },
+        {
+            "type": "stir",
+            "ingredient": "CLOCKWISE",
+            "rotations": 2,
+            "speed": "Invalid Speed"
+        }
+    ]
+}

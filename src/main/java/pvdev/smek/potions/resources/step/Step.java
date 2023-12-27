@@ -14,8 +14,12 @@ public abstract class Step {
         parentRecipe = recipe;
     }
 
-    protected void notifyRecipe() {
+    protected void notifyRecipeNextStep() {
         if (parentRecipe != null) parentRecipe.nextStep();
+    }
+
+    protected void executeStep(Step step) {
+        if (parentRecipe != null) parentRecipe.executeStep(step);
     }
 
     /**

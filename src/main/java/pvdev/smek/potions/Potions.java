@@ -19,8 +19,8 @@ public final class Potions extends JavaPlugin {
     private static IngredientManager ingredientManager;
     private static RecipeManager recipeManager;
 
-    private static final TextColor INFO = TextColor.fromHexString("#2dcc71");
-    private static final TextColor WARNING = TextColor.fromHexString("#cc2d48");
+    private static final TextColor INFO = TextColor.fromHexString("#39d680");
+    private static final TextColor WARNING = TextColor.fromHexString("#e24a61");
 
     @Override
     public void onEnable() {
@@ -48,9 +48,9 @@ public final class Potions extends JavaPlugin {
 
     private static void registerResources() {
         ingredientManager = new IngredientManager();
-        recipeManager = new RecipeManager();
-
         ingredientManager.registerIngredients();
+
+        recipeManager = new RecipeManager();
         recipeManager.registerRecipes();
     }
 
@@ -60,7 +60,7 @@ public final class Potions extends JavaPlugin {
     }
 
     public static void reloadResources() {
-        Potions.log("Resources are being reloaded.", Level.INFO);
+        log("Resources are being reloaded.", Level.INFO);
         registerResources();
     }
 

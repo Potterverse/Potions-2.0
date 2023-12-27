@@ -1,8 +1,12 @@
 package pvdev.smek.potions.resources.step;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import pvdev.smek.potions.Potions;
+import pvdev.smek.potions.json.JSONUtil;
 import pvdev.smek.potions.resources.validator.step.IngredientStepValidator;
+import pvdev.smek.potions.resources.validator.step.StirStepValidator;
+import pvdev.smek.potions.resources.validator.step.WaitStepValidator;
 
 import java.util.logging.Level;
 
@@ -19,18 +23,20 @@ public class StepFactory {
      * @return              Step instance.
      */
     public static Step validateAndReturnStep(JsonObject jsonObject) {
-        String type = jsonObject.get("type").getAsString();
+        String type = JSONUtil.validateAndReturnType(jsonObject, "type", JsonElement::getAsString);
         if (type == null) {
-            Potions.log("| Failed to register step. Please check the JSON file.", Level.WARNING);
+            Potions.log(" > Failed to register step. " + jsonObject, Level.WARNING);
             return null;
         }
 
-        switch (type) {
-            case "ingredient" : return new IngredientStepValidator().validateAndReturnResource(jsonObject);
-            default : {
-                Potions.log("| Could not find step: \"" + type + "\".", Level.WARNING);
-                return null;
+        return switch (type) {
+            case "ingredient" -> new IngredientStepValidator().validateAndReturnResource(jsonObject);
+            case "stir" -> new StirStepValidator().validateAndReturnResource(jsonObject);
+            case "wait" -> new WaitStepValidator().validateAndReturnResource(jsonObject);
+            default -> {
+                Potions.log(" > Failed to find step: \"" + type + "\". " + jsonObject, Level.WARNING);
+                yield null;
             }
-        }
+        };
     }
 }

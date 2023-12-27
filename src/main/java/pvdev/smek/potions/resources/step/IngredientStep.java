@@ -31,13 +31,13 @@ public class IngredientStep extends Step {
         if (ingredientStep.getQuantity() + quantityRegistered > quantity) return false;
 
         quantityRegistered += ingredientStep.getQuantity();
-        if (quantityRegistered == quantity) notifyRecipe();
+        if (quantityRegistered == quantity) notifyRecipeNextStep();
 
         return true;
     }
 
     public String toString() {
-        return ingredient.getName() + " " + quantityRegistered + "/" + quantity;
+        return "Place " + ingredient.getName() + " " + quantityRegistered + "/" + quantity;
     }
 
     public Ingredient getIngredient() {

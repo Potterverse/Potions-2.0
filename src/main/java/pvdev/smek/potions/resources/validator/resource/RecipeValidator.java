@@ -1,6 +1,7 @@
 package pvdev.smek.potions.resources.validator.resource;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import pvdev.smek.potions.Potions;
 import pvdev.smek.potions.json.JSONUtil;
@@ -17,14 +18,15 @@ public class RecipeValidator implements Validator<Recipe> {
 
     @Override
     public Recipe validateAndReturnResource(JsonObject jsonObject) {
-        String name = JSONUtil.findJSONString(jsonObject, "name");
-        JsonArray steps = JSONUtil.findJSONArray(jsonObject, "steps");
+        String name = JSONUtil.validateAndReturnType(jsonObject, "name", JsonElement::getAsString);
+        String hex = JSONUtil.validateAndReturnType(jsonObject, "hex", JsonElement::getAsString);
+        JsonArray steps = JSONUtil.validateAndReturnType(jsonObject, "steps", JsonElement::getAsJsonArray);
 
-        if (name == null || steps == null)  {
-            Potions.log("| Failed to validate recipe parameters. Please check the JSON file.",
+        if (name == null || hex == null || steps == null)  {
+            Potions.log(" > Failed to validate recipe parameters. " + jsonObject,
                     Level.WARNING);
             return null;
         }
-        return new Recipe(name, steps);
+        return new Recipe(name, hex, steps);
     }
 }

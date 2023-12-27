@@ -7,22 +7,26 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import pvdev.smek.potions.Potions;
+import pvdev.smek.potions.resources.resource.enums.Process;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 
 /***
  * The resource responsible for representing potion ingredients.
  */
-public class Ingredient implements Resource {
+public class Ingredient extends Resource {
 
     private final String name, description;
     private final TextColor color;
     private final Material material;
+    private final int customModelData;
+    private final Map<Process, String> process;
 
-    public static final TextColor DEFAULT_COLOR = TextColor.fromHexString("#FFFFFF");
-    public static final Material DEFAULT_MATERIAL = Material.GRASS_BLOCK;
+    private static final Material DEFAULT_MATERIAL = Material.GRASS_BLOCK;
 
     /**
      * Constructs an ingredient with the given name, description,
@@ -32,12 +36,16 @@ public class Ingredient implements Resource {
      * @param hex           Hexadecimal code beginning with a "#" symbol.
      * @param material      The name of the Minecraft material representing the ingredient.
      */
-    public Ingredient(String name, String description, String hex, String material) {
+    public Ingredient(String name, String description, String hex,
+                      String material, int customModelData, Map<Process, String> process) {
+
         Potions.log("| Registering ingredient: \"" + name + "\".", Level.INFO);
         this.name =  name;
         this.description = description;
         this.color = validateAndReturnColor(hex);
         this.material = validateAndReturnMaterial(material.toUpperCase());
+        this.customModelData = customModelData;
+        this.process = process;
     }
 
     /**
@@ -50,12 +58,15 @@ public class Ingredient implements Resource {
         this.description = ingredient.getDescription();
         this.color = ingredient.getColor();
         this.material = ingredient.getMaterial();
+        this.customModelData = ingredient.getCustomModelData();
+        this.process = new HashMap<>(ingredient.getProcess());
     }
 
+    @Override
     public ItemStack getItemStack() {
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
-
+        meta.setCustomModelData(customModelData);
         meta.displayName(Component.text(name)
                 .decoration(TextDecoration.ITALIC, false)
                 .decorate(TextDecoration.BOLD).color(color));
@@ -64,9 +75,8 @@ public class Ingredient implements Resource {
         lore.add(Component.text(description).decoration(TextDecoration.ITALIC, false).color(color));
         lore.add(Component.text("Official Potterverse Ingredient")
                 .decorate(TextDecoration.ITALIC)
-                .color(TextColor.fromHexString("#b986f0")));
+                .color(DEFAULT_OFFICIAL_COLOR));
         meta.lore(lore);
-
         item.setItemMeta(meta);
 
         return item;
@@ -83,10 +93,6 @@ public class Ingredient implements Resource {
                 && ingredient.getDescription().equals(description)
                 && ingredient.getColor().equals(color)
                 && ingredient.getMaterial().name().equals(material.name());
-    }
-
-    private TextColor validateAndReturnColor(String hex) {
-        return TextColor.fromHexString(hex) == null ? DEFAULT_COLOR : TextColor.fromHexString(hex);
     }
 
     private Material validateAndReturnMaterial(String material) {
@@ -108,5 +114,13 @@ public class Ingredient implements Resource {
 
     public Material getMaterial() {
         return material;
+    }
+
+    public int getCustomModelData() {
+        return customModelData;
+    }
+
+    public Map<Process, String> getProcess() {
+        return process;
     }
 }

@@ -1,6 +1,5 @@
 package pvdev.smek.potions.json;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -8,9 +7,9 @@ import pvdev.smek.potions.Potions;
 
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.logging.Level;
 
 /**
@@ -41,37 +40,37 @@ public class JSONUtil {
 
         File[] files = directory.listFiles();
         if (files == null) {
-            Potions.log("\tFailed to access this directory.", Level.WARNING);
+            Potions.log(" > Failed to access this directory.", Level.WARNING);
             return jsonFiles;
         }
         for (File file : files) {
             try {
-                jsonFiles.add(JsonParser.parseReader(new FileReader(file)).getAsJsonObject());
+                jsonFiles.add(parseJsonFile(file));
             } catch (Exception e) {
-                Potions.log("| Failed to load file \""
+                Potions.log(" > Failed to load file \""
                         + file.getName() + "\". Reason: " + e.getMessage(), Level.WARNING);
             }
         }
         return jsonFiles;
     }
 
-    public static String findJSONString(JsonObject jsonObject, String key) {
+    private static JsonObject parseJsonFile(File file) throws Exception {
+        try (FileReader reader = new FileReader(file)) {
+            return JsonParser.parseReader(reader).getAsJsonObject();
+        }
+    }
+
+    public static <T> T validateAndReturnType(JsonObject jsonObject, String key, Function<JsonElement, T> extractor) {
         JsonElement jsonElement = jsonObject.get(key);
-        if (jsonElement.isJsonPrimitive() && jsonElement.getAsJsonPrimitive().isString())
-            return jsonElement.getAsString();
+        if (jsonElement != null) try { return extractor.apply(jsonElement); } catch (Exception ignored) {}
         return null;
     }
 
-    public static Integer findJSONInteger(JsonObject jsonObject, String key) {
-        JsonElement jsonElement = jsonObject.get(key);
-        if (jsonElement.isJsonPrimitive() && jsonElement.getAsJsonPrimitive().isNumber())
-            return jsonElement.getAsInt();
-        return null;
-    }
-
-    public static JsonArray findJSONArray(JsonObject jsonObject, String key) {
-        JsonElement jsonElement = jsonObject.get(key);
-        if (jsonElement.isJsonArray()) return jsonElement.getAsJsonArray();
-        return null;
+    public static <T extends Enum<T>> T validateAndReturnEnum(String name, Class<T> enumType) {
+        try {
+            return Enum.valueOf(enumType, name.toUpperCase());
+        } catch (IllegalArgumentException | NullPointerException e) {
+            return null;
+        }
     }
 }
